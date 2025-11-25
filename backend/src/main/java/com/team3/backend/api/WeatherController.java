@@ -37,6 +37,7 @@ public class WeatherController {
             @RequestParam Long locationId,
             HttpServletRequest request) {
 
+        // permission flow verified
         User user = (User) request.getAttribute("loginUser");
         permissionService.getAuthorizedLocation(user, locationId);
 

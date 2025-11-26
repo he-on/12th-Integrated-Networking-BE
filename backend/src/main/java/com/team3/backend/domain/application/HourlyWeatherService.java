@@ -33,7 +33,8 @@ public class HourlyWeatherService {
         HourlyWeatherDto dto = hourlyWeatherClient.getHourlyWeather(lat, lon);
 
         LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-        int today = now.getDayOfMonth();
+
+        LocalDateTime limit = now.plusHours(24);
 
         List<HourlyWeatherResponse> result = new java.util.ArrayList<>();
 
@@ -44,7 +45,7 @@ public class HourlyWeatherService {
                     ZoneId.of("Asia/Seoul")
             );
 
-            if (dateTime.getDayOfMonth() != today) {
+            if (dateTime.isBefore(now) || dateTime.isAfter(limit)) {
                 continue;
             }
 
